@@ -1,11 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
 namespace Hub.Services.Export.DataAccess.Migrations
 {
-    public partial class AddExportConfigurationTables : Migration
+    public partial class AddExportConfiguration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -18,14 +17,21 @@ namespace Hub.Services.Export.DataAccess.Migrations
                 columns: table => new
                 {
                     ExportName = table.Column<string>(maxLength: 128, nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: true),
+                    DateUpdated = table.Column<DateTime>(nullable: true),
                     ExportProgram = table.Column<string>(maxLength: 128, nullable: true),
                     ExportType = table.Column<string>(maxLength: 20, nullable: true),
+                    Id = table.Column<Guid>(nullable: false),
                     PostExecute = table.Column<string>(maxLength: 255, nullable: true),
-                    PreExecute = table.Column<string>(maxLength: 255, nullable: true)
+                    PreExecute = table.Column<string>(maxLength: 255, nullable: true),
+                    TenantId = table.Column<Guid>(nullable: false),
+                    UpdatedBy = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ExportConfiguration", x => x.ExportName);
+                    table.UniqueConstraint("AK_ExportConfiguration_Id", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -36,10 +42,14 @@ namespace Hub.Services.Export.DataAccess.Migrations
                     ExportName = table.Column<string>(maxLength: 128, nullable: false),
                     GroupName = table.Column<string>(maxLength: 128, nullable: false),
                     ArchiveFolder = table.Column<string>(maxLength: 250, nullable: true),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: true),
+                    DateUpdated = table.Column<DateTime>(nullable: true),
                     ExternalFolder = table.Column<string>(maxLength: 250, nullable: true),
                     FileSuffix = table.Column<string>(maxLength: 50, nullable: true),
                     Filter = table.Column<string>(maxLength: 255, nullable: true),
                     GroupType = table.Column<string>(maxLength: 50, nullable: true),
+                    Id = table.Column<Guid>(nullable: false),
                     InternalFolder = table.Column<string>(maxLength: 250, nullable: true),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     IsIncremental = table.Column<bool>(type: "bit", nullable: false),
@@ -48,12 +58,15 @@ namespace Hub.Services.Export.DataAccess.Migrations
                     QueueTable = table.Column<string>(maxLength: 128, nullable: true),
                     Role = table.Column<string>(maxLength: 50, nullable: true),
                     SendEmail = table.Column<bool>(type: "bit", nullable: false),
+                    TenantId = table.Column<Guid>(nullable: false),
                     ToAddr = table.Column<string>(maxLength: 250, nullable: true),
-                    UpdateExportURL = table.Column<bool>(type: "bit", nullable: false)
+                    UpdateExportURL = table.Column<bool>(type: "bit", nullable: false),
+                    UpdatedBy = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ExportGroup", x => new { x.ExportName, x.GroupName });
+                    table.UniqueConstraint("AK_ExportGroup_Id", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -61,8 +74,10 @@ namespace Hub.Services.Export.DataAccess.Migrations
                 schema: "exp",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: true),
+                    DateUpdated = table.Column<DateTime>(nullable: true),
                     ExcludeFields = table.Column<string>(maxLength: 250, nullable: true),
                     ExportName = table.Column<string>(maxLength: 128, nullable: true),
                     Filter = table.Column<string>(maxLength: 255, nullable: true),
@@ -74,6 +89,8 @@ namespace Hub.Services.Export.DataAccess.Migrations
                     Sequence = table.Column<int>(nullable: false),
                     Source = table.Column<string>(maxLength: 255, nullable: true),
                     SourceType = table.Column<string>(maxLength: 10, nullable: true),
+                    TenantId = table.Column<Guid>(nullable: false),
+                    UpdatedBy = table.Column<string>(nullable: true),
                     isActive = table.Column<bool>(type: "bit", nullable: false)
                 },
                 constraints: table =>
@@ -89,11 +106,18 @@ namespace Hub.Services.Export.DataAccess.Migrations
                     ExportName = table.Column<string>(maxLength: 128, nullable: false),
                     GroupName = table.Column<string>(maxLength: 128, nullable: false),
                     PropertyName = table.Column<string>(maxLength: 128, nullable: false),
-                    PropertyValue = table.Column<string>(maxLength: 255, nullable: true)
+                    CreatedBy = table.Column<string>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: true),
+                    DateUpdated = table.Column<DateTime>(nullable: true),
+                    Id = table.Column<Guid>(nullable: false),
+                    PropertyValue = table.Column<string>(maxLength: 255, nullable: true),
+                    TenantId = table.Column<Guid>(nullable: false),
+                    UpdatedBy = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ExportProperties", x => new { x.ExportName, x.GroupName, x.PropertyName });
+                    table.UniqueConstraint("AK_ExportProperties_Id", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -101,13 +125,17 @@ namespace Hub.Services.Export.DataAccess.Migrations
                 schema: "exp",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Id = table.Column<Guid>(nullable: false),
+                    CreatedBy = table.Column<string>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: true),
                     DateExported = table.Column<DateTime>(nullable: false),
+                    DateUpdated = table.Column<DateTime>(nullable: true),
                     ExportName = table.Column<string>(maxLength: 128, nullable: true),
                     GroupName = table.Column<string>(maxLength: 128, nullable: true),
                     ObjectName = table.Column<string>(maxLength: 255, nullable: true),
-                    ReferenceId = table.Column<string>(maxLength: 255, nullable: true)
+                    ReferenceId = table.Column<string>(maxLength: 255, nullable: true),
+                    TenantId = table.Column<Guid>(nullable: false),
+                    UpdatedBy = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

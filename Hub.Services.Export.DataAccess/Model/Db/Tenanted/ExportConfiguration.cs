@@ -5,8 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Hub.Services.Export.DataAccess.Model.Db.Tenanted
 {
     [Table("ExportConfiguration")]
-    //public class ExportConfiguration : TenantedEntity
-    public class ExportConfiguration
+    public class ExportConfiguration : TenantedEntity
+    //public class ExportConfiguration
     {
         [StringLength(128)]
         public string ExportName { get; set; }
@@ -19,18 +19,18 @@ namespace Hub.Services.Export.DataAccess.Model.Db.Tenanted
         [StringLength(255)]
         public string PostExecute { get; set; }
 
-        //public override void UpdateWith(TenantedEntity entity)
-        //{
-        //    if (!(entity is ExportConfiguration ec))
-        //    {
-        //        return;
-        //    }
+        public override void UpdateWith(TenantedEntity entity)
+        {
+            if (!(entity is ExportConfiguration ec))
+            {
+                return;
+            }
 
-        //    ExportName = ec.ExportName;
-        //    ExportProgram = ec.ExportProgram;
-        //    ExportType = ec.ExportType;
-        //    PreExecute = ec.PreExecute;
-        //    PostExecute = ec.PostExecute;
-        //}
+            ExportName = ec.ExportName;
+            ExportProgram = ec.ExportProgram;
+            ExportType = ec.ExportType;
+            PreExecute = ec.PreExecute;
+            PostExecute = ec.PostExecute;
+        }
     }
 }

@@ -5,8 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Hub.Services.Export.DataAccess.Model.Db.Tenanted
 {
     [Table("ExportGroup")]
-    //public class ExportGroup : TenantedEntity
-    public class ExportGroup
+    public class ExportGroup : TenantedEntity
+    //public class ExportGroup
     {
         [StringLength(128)]
         public string ExportName { get; set; }
@@ -43,30 +43,30 @@ namespace Hub.Services.Export.DataAccess.Model.Db.Tenanted
         [StringLength(50)]
         public string Role { get; set; }
 
-        //public override void UpdateWith(TenantedEntity entity)
-        //{
-        //    if (!(entity is ExportGroup eg))
-        //    {
-        //        return;
-        //    }
+        public override void UpdateWith(TenantedEntity entity)
+        {
+            if (!(entity is ExportGroup eg))
+            {
+                return;
+            }
 
-        //    ExportName = eg.ExportName;
-        //    GroupName = eg.GroupName;
-        //    GroupType = eg.GroupType;
-        //    InternalFolder = eg.InternalFolder;
-        //    ExternalFolder = eg.ExternalFolder;
-        //    ArchiveFolder = eg.ArchiveFolder;
-        //    IsActive = eg.IsActive;
-        //    UpdateExportURL = eg.UpdateExportURL;
-        //    IsIncremental = eg.IsIncremental;
-        //    QueueTable = eg.QueueTable;
-        //    OrderBy = eg.OrderBy;
-        //    Filter = eg.Filter;
-        //    FileSuffix = eg.FileSuffix;
-        //    SendEmail = eg.SendEmail;
-        //    ToAddr = eg.ToAddr;
-        //    Project = eg.Project;
-        //    Role = eg.Role;
-        //}
+            ExportName = eg.ExportName;
+            GroupName = eg.GroupName;
+            GroupType = eg.GroupType;
+            InternalFolder = eg.InternalFolder;
+            ExternalFolder = eg.ExternalFolder;
+            ArchiveFolder = eg.ArchiveFolder;
+            IsActive = eg.IsActive;
+            UpdateExportURL = eg.UpdateExportURL;
+            IsIncremental = eg.IsIncremental;
+            QueueTable = eg.QueueTable;
+            OrderBy = eg.OrderBy;
+            Filter = eg.Filter;
+            FileSuffix = eg.FileSuffix;
+            SendEmail = eg.SendEmail;
+            ToAddr = eg.ToAddr;
+            Project = eg.Project;
+            Role = eg.Role;
+        }
     }
 }

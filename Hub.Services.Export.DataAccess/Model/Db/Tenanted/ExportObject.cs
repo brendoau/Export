@@ -5,11 +5,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Hub.Services.Export.DataAccess.Model.Db.Tenanted
 {
     [Table("ExportObject")]
-    //public class ExportObject : TenantedEntity
-    public class ExportObject
+    public class ExportObject : TenantedEntity
+    //public class ExportObject
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
         [StringLength(128)]
         public string ExportName { get; set; }
         [StringLength(128)]
@@ -34,25 +32,25 @@ namespace Hub.Services.Export.DataAccess.Model.Db.Tenanted
         [Column(TypeName = "bit")]
         public bool isActive { get; set; }
 
-        //public override void UpdateWith(TenantedEntity entity)
-        //{
-        //    if (!(entity is ExportObject eo))
-        //    {
-        //        return;
-        //    }
+        public override void UpdateWith(TenantedEntity entity)
+        {
+            if (!(entity is ExportObject eo))
+            {
+                return;
+            }
 
-        //    ExportName = eo.ExportName;
-        //    GroupName = eo.GroupName;
-        //    ObjectName = eo.ObjectName;
-        //    Sequence = eo.Sequence;
-        //    SourceType = eo.SourceType;
-        //    Source = eo.Source;
-        //    PrimaryKey = eo.PrimaryKey;
-        //    ExcludeFields = eo.ExcludeFields;
-        //    OutputName = eo.OutputName;
-        //    OrderBy = eo.OrderBy;
-        //    Filter = eo.Filter;
-        //    isActive = eo.isActive;
-        //}
+            ExportName = eo.ExportName;
+            GroupName = eo.GroupName;
+            ObjectName = eo.ObjectName;
+            Sequence = eo.Sequence;
+            SourceType = eo.SourceType;
+            Source = eo.Source;
+            PrimaryKey = eo.PrimaryKey;
+            ExcludeFields = eo.ExcludeFields;
+            OutputName = eo.OutputName;
+            OrderBy = eo.OrderBy;
+            Filter = eo.Filter;
+            isActive = eo.isActive;
+        }
     }
 }

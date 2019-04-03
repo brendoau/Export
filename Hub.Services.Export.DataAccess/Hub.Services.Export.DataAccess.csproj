@@ -5,11 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20190402092324_AddExportConfigurationTables.cs" />
-    <Compile Remove="Migrations\20190403031135_AddExportConfigurationTables.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="..\appsettings.Development.json" Link="appsettings.Development.json" Condition="Exists('..\appsettings.Development.json')">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

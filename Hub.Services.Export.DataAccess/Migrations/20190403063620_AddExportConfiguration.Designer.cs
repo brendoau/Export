@@ -11,8 +11,8 @@ using System;
 namespace Hub.Services.Export.DataAccess.Migrations
 {
     [DbContext(typeof(TenantedExportDbContext))]
-    [Migration("20190403034150_AddExportConfigurationTables")]
-    partial class AddExportConfigurationTables
+    [Migration("20190403063620_AddExportConfiguration")]
+    partial class AddExportConfiguration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,11 +28,20 @@ namespace Hub.Services.Export.DataAccess.Migrations
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(128);
 
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime?>("DateCreated");
+
+                    b.Property<DateTime?>("DateUpdated");
+
                     b.Property<string>("ExportProgram")
                         .HasMaxLength(128);
 
                     b.Property<string>("ExportType")
                         .HasMaxLength(20);
+
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("PostExecute")
                         .HasMaxLength(255);
@@ -40,7 +49,13 @@ namespace Hub.Services.Export.DataAccess.Migrations
                     b.Property<string>("PreExecute")
                         .HasMaxLength(255);
 
+                    b.Property<Guid>("TenantId");
+
+                    b.Property<string>("UpdatedBy");
+
                     b.HasKey("ExportName");
+
+                    b.HasAlternateKey("Id");
 
                     b.ToTable("ExportConfiguration");
                 });
@@ -56,6 +71,12 @@ namespace Hub.Services.Export.DataAccess.Migrations
                     b.Property<string>("ArchiveFolder")
                         .HasMaxLength(250);
 
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime?>("DateCreated");
+
+                    b.Property<DateTime?>("DateUpdated");
+
                     b.Property<string>("ExternalFolder")
                         .HasMaxLength(250);
 
@@ -67,6 +88,9 @@ namespace Hub.Services.Export.DataAccess.Migrations
 
                     b.Property<string>("GroupType")
                         .HasMaxLength(50);
+
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("InternalFolder")
                         .HasMaxLength(250);
@@ -92,21 +116,33 @@ namespace Hub.Services.Export.DataAccess.Migrations
                     b.Property<bool>("SendEmail")
                         .HasColumnType("bit");
 
+                    b.Property<Guid>("TenantId");
+
                     b.Property<string>("ToAddr")
                         .HasMaxLength(250);
 
                     b.Property<bool>("UpdateExportURL")
                         .HasColumnType("bit");
 
+                    b.Property<string>("UpdatedBy");
+
                     b.HasKey("ExportName", "GroupName");
+
+                    b.HasAlternateKey("Id");
 
                     b.ToTable("ExportGroup");
                 });
 
             modelBuilder.Entity("Hub.Services.Export.DataAccess.Model.Db.Tenanted.ExportObject", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime?>("DateCreated");
+
+                    b.Property<DateTime?>("DateUpdated");
 
                     b.Property<string>("ExcludeFields")
                         .HasMaxLength(250);
@@ -140,6 +176,10 @@ namespace Hub.Services.Export.DataAccess.Migrations
                     b.Property<string>("SourceType")
                         .HasMaxLength(10);
 
+                    b.Property<Guid>("TenantId");
+
+                    b.Property<string>("UpdatedBy");
+
                     b.Property<bool>("isActive")
                         .HasColumnType("bit");
 
@@ -159,20 +199,41 @@ namespace Hub.Services.Export.DataAccess.Migrations
                     b.Property<string>("PropertyName")
                         .HasMaxLength(128);
 
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime?>("DateCreated");
+
+                    b.Property<DateTime?>("DateUpdated");
+
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
                     b.Property<string>("PropertyValue")
                         .HasMaxLength(255);
 
+                    b.Property<Guid>("TenantId");
+
+                    b.Property<string>("UpdatedBy");
+
                     b.HasKey("ExportName", "GroupName", "PropertyName");
+
+                    b.HasAlternateKey("Id");
 
                     b.ToTable("ExportProperties");
                 });
 
             modelBuilder.Entity("Hub.Services.Export.DataAccess.Model.Db.Tenanted.ExportQueue", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime?>("DateCreated");
+
                     b.Property<DateTime>("DateExported");
+
+                    b.Property<DateTime?>("DateUpdated");
 
                     b.Property<string>("ExportName")
                         .HasMaxLength(128);
@@ -185,6 +246,10 @@ namespace Hub.Services.Export.DataAccess.Migrations
 
                     b.Property<string>("ReferenceId")
                         .HasMaxLength(255);
+
+                    b.Property<Guid>("TenantId");
+
+                    b.Property<string>("UpdatedBy");
 
                     b.HasKey("Id");
 

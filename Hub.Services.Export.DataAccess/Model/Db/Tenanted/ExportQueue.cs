@@ -6,11 +6,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Hub.Services.Export.DataAccess.Model.Db.Tenanted
 {
     [Table("ExportQueue")]
-    //public class ExportQueue : TenantedEntity
-    public class ExportQueue
+    public class ExportQueue : TenantedEntity
+    //public class ExportQueue
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
         [StringLength(128)]
         public string ExportName { get; set; }
         [StringLength(128)]
@@ -21,18 +19,18 @@ namespace Hub.Services.Export.DataAccess.Model.Db.Tenanted
         public string ReferenceId { get; set; }
         public DateTime DateExported { get; set; }
 
-        //public override void UpdateWith(TenantedEntity entity)
-        //{
-        //    if (!(entity is ExportQueue eq))
-        //    {
-        //        return;
-        //    }
+        public override void UpdateWith(TenantedEntity entity)
+        {
+            if (!(entity is ExportQueue eq))
+            {
+                return;
+            }
 
-        //    ExportName = eq.ExportName;
-        //    GroupName = eq.GroupName;
-        //    ObjectName = eq.ObjectName;
-        //    ReferenceId = eq.ReferenceId;
-        //    DateExported = eq.DateExported;
-        //}
+            ExportName = eq.ExportName;
+            GroupName = eq.GroupName;
+            ObjectName = eq.ObjectName;
+            ReferenceId = eq.ReferenceId;
+            DateExported = eq.DateExported;
+        }
     }
 }
