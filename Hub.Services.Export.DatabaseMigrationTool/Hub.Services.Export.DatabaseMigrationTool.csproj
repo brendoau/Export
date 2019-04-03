@@ -1,12 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
+    <StartupObject>Hub.Services.Export.DatabaseMigrationTool.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20190402092324_AddExportConfigurationTables.cs" />
-    <Compile Remove="Migrations\20190403031135_AddExportConfigurationTables.cs" />
+    <ProjectReference Include="..\Hub.Services.Export.DataAccess\Hub.Services.Export.DataAccess.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,13 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Hub.DataAccessCore" Version="1.0.27" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.2">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Configuration" Version="2.0.2" />
-    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="2.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="2.1.1" />
   </ItemGroup>
 
 </Project>
