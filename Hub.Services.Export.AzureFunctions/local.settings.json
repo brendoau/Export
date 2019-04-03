@@ -1,0 +1,19 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "UseDevelopmentStorage=true",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet"
+  }
+}
+
+//{
+//  "IsEncrypted": false,
+//  "Values": {
+//    "FUNCTIONS_EXTENSION_VERSION": "~1",
+//    "ScmType": "None",
+//    "WEBSITE_AUTH_ENABLED": "False",
+//    "AzureWebJobsDashboard": "DefaultEndpointsProtocol=https;AccountName=hubv3dev2;AccountKey=AMNnc5wm+/nOCD70HIUt7lCTrRG8bmctu4pZ5IBoUK0wshXtF8SZS6Cq1mvZKdQksOgjfVV2J0cH3cHKxE2EBg==",
+//    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=hubv3dev2;AccountKey=AMNnc5wm+/nOCD70HIUt7lCTrRG8bmctu4pZ5IBoUK0wshXtF8SZS6Cq1mvZKdQksOgjfVV2J0cH3cHKxE2EBg==",
+//    "WEBSITE_NODE_DEFAULT_VERSION": "6.5.0"
+//  }
+//}

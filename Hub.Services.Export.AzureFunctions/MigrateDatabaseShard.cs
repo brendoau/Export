@@ -1,4 +1,4 @@
-﻿using Hub.DataAccessCore;
+using Hub.DataAccessCore;
 using Hub.Services.Export.DataAccess.DbConfiguration;
 using Hub.Services.Export.Interfaces;
 using Microsoft.Azure.WebJobs;
