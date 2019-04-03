@@ -52,14 +52,6 @@ namespace Hub.Services.Export.DatabaseMigrationTool
             var logger = serviceProvider.GetService<ILoggerFactory>().CreateLogger("DatabaseMigrationTool");
             logger.LogInformation("Running");
 
-            //var dbOptions = new DbContextOptionsBuilder<TenantedExportDbContext>();
-            //dbOptions.UseSqlServer(config.GetConnectionString("ReportsDB"), o => o.MigrationsAssembly("Hub.Services.Export.DataAccess"));
-
-            //logger.LogInformation("Migrating...");
-            //var dbContext = new TenantedExportDbContext(dbOptions.Options);
-            //dbContext.Database.Migrate();
-            //logger.LogInformation("Migrating finished");
-
             var serviceFactory = serviceProvider.GetService<IServiceFactory>();
 
             logger.LogInformation("Initializing...");
