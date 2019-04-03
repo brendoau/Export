@@ -6,7 +6,6 @@ namespace Hub.Services.Export.DataAccess.Model.Db.Tenanted
 {
     [Table("ExportGroup")]
     public class ExportGroup : TenantedEntity
-    //public class ExportGroup
     {
         [StringLength(128)]
         public string ExportName { get; set; }
