@@ -1,5 +1,0 @@
-{
-  "ConnectionStrings": {
-    "DevShardDB": "Data Source=.\\SQL2014;Initial Catalog=ShardDev;;User Id=sa;Password=Imdex!23;"
-  }
-}
