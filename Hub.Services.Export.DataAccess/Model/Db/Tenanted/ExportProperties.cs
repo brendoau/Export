@@ -16,6 +16,8 @@ namespace Hub.Services.Export.DataAccess.Model.Db.Tenanted
         [StringLength(255)]
         public string PropertyValue { get; set; }
 
+        public ExportGroup ExportGroup { get; set; }
+        
         public override void UpdateWith(TenantedEntity entity)
         {
             if (!(entity is ExportProperties ep))

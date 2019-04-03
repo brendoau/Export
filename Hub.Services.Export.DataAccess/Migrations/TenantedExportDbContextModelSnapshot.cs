@@ -34,9 +34,11 @@ namespace Hub.Services.Export.DataAccess.Migrations
                     b.Property<DateTime?>("DateUpdated");
 
                     b.Property<string>("ExportProgram")
+                        .IsRequired()
                         .HasMaxLength(128);
 
                     b.Property<string>("ExportType")
+                        .IsRequired()
                         .HasMaxLength(20);
 
                     b.Property<Guid>("Id")
@@ -77,6 +79,7 @@ namespace Hub.Services.Export.DataAccess.Migrations
                     b.Property<DateTime?>("DateUpdated");
 
                     b.Property<string>("ExternalFolder")
+                        .IsRequired()
                         .HasMaxLength(250);
 
                     b.Property<string>("FileSuffix")
@@ -92,12 +95,13 @@ namespace Hub.Services.Export.DataAccess.Migrations
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("InternalFolder")
+                        .IsRequired()
                         .HasMaxLength(250);
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsIncremental")
+                    b.Property<bool?>("IsIncremental")
                         .HasColumnType("bit");
 
                     b.Property<string>("OrderBy")
@@ -112,7 +116,7 @@ namespace Hub.Services.Export.DataAccess.Migrations
                     b.Property<string>("Role")
                         .HasMaxLength(50);
 
-                    b.Property<bool>("SendEmail")
+                    b.Property<bool?>("SendEmail")
                         .HasColumnType("bit");
 
                     b.Property<Guid>("TenantId");
@@ -147,12 +151,14 @@ namespace Hub.Services.Export.DataAccess.Migrations
                         .HasMaxLength(250);
 
                     b.Property<string>("ExportName")
+                        .IsRequired()
                         .HasMaxLength(128);
 
                     b.Property<string>("Filter")
                         .HasMaxLength(255);
 
                     b.Property<string>("GroupName")
+                        .IsRequired()
                         .HasMaxLength(128);
 
                     b.Property<string>("ObjectName")
@@ -162,6 +168,7 @@ namespace Hub.Services.Export.DataAccess.Migrations
                         .HasMaxLength(250);
 
                     b.Property<string>("OutputName")
+                        .IsRequired()
                         .HasMaxLength(128);
 
                     b.Property<string>("PrimaryKey")
@@ -173,6 +180,7 @@ namespace Hub.Services.Export.DataAccess.Migrations
                         .HasMaxLength(255);
 
                     b.Property<string>("SourceType")
+                        .IsRequired()
                         .HasMaxLength(10);
 
                     b.Property<Guid>("TenantId");
@@ -183,6 +191,8 @@ namespace Hub.Services.Export.DataAccess.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ExportName", "GroupName");
 
                     b.ToTable("ExportObject");
                 });
@@ -230,20 +240,24 @@ namespace Hub.Services.Export.DataAccess.Migrations
 
                     b.Property<DateTime?>("DateCreated");
 
-                    b.Property<DateTime>("DateExported");
+                    b.Property<DateTime?>("DateExported");
 
                     b.Property<DateTime?>("DateUpdated");
 
                     b.Property<string>("ExportName")
+                        .IsRequired()
                         .HasMaxLength(128);
 
                     b.Property<string>("GroupName")
+                        .IsRequired()
                         .HasMaxLength(128);
 
                     b.Property<string>("ObjectName")
+                        .IsRequired()
                         .HasMaxLength(255);
 
                     b.Property<string>("ReferenceId")
+                        .IsRequired()
                         .HasMaxLength(255);
 
                     b.Property<Guid>("TenantId");
@@ -252,7 +266,41 @@ namespace Hub.Services.Export.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ExportName", "GroupName");
+
                     b.ToTable("ExportQueue");
+                });
+
+            modelBuilder.Entity("Hub.Services.Export.DataAccess.Model.Db.Tenanted.ExportGroup", b =>
+                {
+                    b.HasOne("Hub.Services.Export.DataAccess.Model.Db.Tenanted.ExportConfiguration", "ExportConfiguration")
+                        .WithMany("ExportGroups")
+                        .HasForeignKey("ExportName")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Hub.Services.Export.DataAccess.Model.Db.Tenanted.ExportObject", b =>
+                {
+                    b.HasOne("Hub.Services.Export.DataAccess.Model.Db.Tenanted.ExportGroup", "ExportGroup")
+                        .WithMany("ExportObjects")
+                        .HasForeignKey("ExportName", "GroupName")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Hub.Services.Export.DataAccess.Model.Db.Tenanted.ExportProperties", b =>
+                {
+                    b.HasOne("Hub.Services.Export.DataAccess.Model.Db.Tenanted.ExportGroup", "ExportGroup")
+                        .WithMany("ExportProperties")
+                        .HasForeignKey("ExportName", "GroupName")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Hub.Services.Export.DataAccess.Model.Db.Tenanted.ExportQueue", b =>
+                {
+                    b.HasOne("Hub.Services.Export.DataAccess.Model.Db.Tenanted.ExportGroup", "ExportGroup")
+                        .WithMany("ExportQueues")
+                        .HasForeignKey("ExportName", "GroupName")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

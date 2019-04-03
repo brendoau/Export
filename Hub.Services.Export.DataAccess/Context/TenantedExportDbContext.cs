@@ -44,11 +44,31 @@ namespace Hub.Services.Export.DataAccess.Context
                 modelBuilder.HasDefaultSchema("exp");
             }
 
-            modelBuilder.Entity<ExportConfiguration>().HasKey(u => new { u.ExportName });
-            modelBuilder.Entity<ExportGroup>().HasKey(u => new { u.ExportName, u.GroupName });
-            modelBuilder.Entity<ExportObject>().HasKey(u => new { u.Id });
-            modelBuilder.Entity<ExportProperties>().HasKey(u => new { u.ExportName, u.GroupName, u.PropertyName });
-            modelBuilder.Entity<ExportQueue>().HasKey(u => new { u.Id });
+            modelBuilder.Entity<ExportConfiguration>().HasKey(c => new {c.ExportName});
+
+            modelBuilder.Entity<ExportGroup>().HasKey(g => new { g.ExportName, g.GroupName });
+            modelBuilder.Entity<ExportGroup>()
+                .HasOne(g => g.ExportConfiguration)
+                .WithMany(c => c.ExportGroups)
+                .HasForeignKey(g => g.ExportName);
+
+            modelBuilder.Entity<ExportObject>().HasKey(o => new { o.Id });
+            modelBuilder.Entity<ExportObject>()
+                .HasOne(o => o.ExportGroup)
+                .WithMany(g => g.ExportObjects)
+                .HasForeignKey(o => new {o.ExportName, o.GroupName});
+            
+            modelBuilder.Entity<ExportProperties>().HasKey(p => new { p.ExportName, p.GroupName, p.PropertyName });
+            modelBuilder.Entity<ExportProperties>()
+                .HasOne(p => p.ExportGroup)
+                .WithMany(g => g.ExportProperties)
+                .HasForeignKey(p => new { p.ExportName, p.GroupName });
+
+            modelBuilder.Entity<ExportQueue>().HasKey(q => new { q.Id });
+            modelBuilder.Entity<ExportQueue>()
+                .HasOne(q => q.ExportGroup)
+                .WithMany(g => g.ExportQueues)
+                .HasForeignKey(q => new { q.ExportName, q.GroupName });
         }
     }
 }

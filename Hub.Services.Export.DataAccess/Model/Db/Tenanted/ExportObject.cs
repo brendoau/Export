@@ -7,13 +7,16 @@ namespace Hub.Services.Export.DataAccess.Model.Db.Tenanted
     [Table("ExportObject")]
     public class ExportObject : TenantedEntity
     {
+        [Required]
         [StringLength(128)]
         public string ExportName { get; set; }
+        [Required]
         [StringLength(128)]
         public string GroupName { get; set; }
         [StringLength(128)]
         public string ObjectName { get; set; }
         public int Sequence { get; set; }
+        [Required]
         [StringLength(10)]
         public string SourceType { get; set; }
         [StringLength(255)]
@@ -22,6 +25,7 @@ namespace Hub.Services.Export.DataAccess.Model.Db.Tenanted
         public string PrimaryKey { get; set; }
         [StringLength(250)]
         public string ExcludeFields { get; set; }
+        [Required]
         [StringLength(128)]
         public string OutputName { get; set; }
         [StringLength(250)]
@@ -30,6 +34,8 @@ namespace Hub.Services.Export.DataAccess.Model.Db.Tenanted
         public string Filter { get; set; }
         [Column(TypeName = "bit")]
         public bool isActive { get; set; }
+
+        public ExportGroup ExportGroup { get; set; }
 
         public override void UpdateWith(TenantedEntity entity)
         {

@@ -1,4 +1,5 @@
-﻿using Hub.DataAccessCore.Model;
+﻿using System.Collections.Generic;
+using Hub.DataAccessCore.Model;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,8 +14,10 @@ namespace Hub.Services.Export.DataAccess.Model.Db.Tenanted
         public string GroupName { get; set; }
         [StringLength(50)]
         public string GroupType { get; set; }
+        [Required]
         [StringLength(250)]
         public string InternalFolder { get; set; }
+        [Required]
         [StringLength(250)]
         public string ExternalFolder { get; set; }
         [StringLength(250)]
@@ -24,7 +27,7 @@ namespace Hub.Services.Export.DataAccess.Model.Db.Tenanted
         [Column(TypeName = "bit")]
         public bool UpdateExportURL { get; set; }
         [Column(TypeName = "bit")]
-        public bool IsIncremental { get; set; }
+        public bool? IsIncremental { get; set; }
         [StringLength(128)]
         public string QueueTable { get; set; }
         [StringLength(250)]
@@ -34,13 +37,19 @@ namespace Hub.Services.Export.DataAccess.Model.Db.Tenanted
         [StringLength(50)]
         public string FileSuffix { get; set; }
         [Column(TypeName = "bit")]
-        public bool SendEmail { get; set; }
+        public bool? SendEmail { get; set; }
         [StringLength(250)]
         public string ToAddr { get; set; }
         [StringLength(50)]
         public string Project { get; set; }
         [StringLength(50)]
         public string Role { get; set; }
+
+        public ExportConfiguration ExportConfiguration { get; set; }
+
+        public List<ExportObject> ExportObjects { get; set; }
+        public List<ExportProperties> ExportProperties { get; set; }
+        public List<ExportQueue> ExportQueues { get; set; }
 
         public override void UpdateWith(TenantedEntity entity)
         {
