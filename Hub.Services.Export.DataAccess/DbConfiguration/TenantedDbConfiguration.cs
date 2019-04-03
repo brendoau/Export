@@ -1,6 +1,6 @@
 ﻿using Hub.DataAccessCore;
 using Hub.Services.Export.DataAccess.Context;
-using Hub.Services.Reporting.Interfaces;
+using Hub.Services.Export.Interfaces;
 using Microsoft.Azure.SqlDatabase.ElasticScale.ShardManagement;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

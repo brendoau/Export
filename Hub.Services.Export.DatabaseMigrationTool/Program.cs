@@ -1,6 +1,6 @@
 ﻿using Hub.DataAccessCore;
 using Hub.Services.Export.DataAccess.DbConfiguration;
-using Hub.Services.Reporting.Interfaces;
+using Hub.Services.Export.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;

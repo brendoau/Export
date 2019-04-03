@@ -1,4 +1,4 @@
-﻿namespace Hub.Services.Reporting.Interfaces
+﻿namespace Hub.Services.Export.Interfaces
 {
     public interface IServiceFactory
     {
